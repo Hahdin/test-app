@@ -1,5 +1,4 @@
 let socket = io()
-socket.emit('joinSensor')
 import makeElement from './makeElement'
 
 const makePage = () => {
