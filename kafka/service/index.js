@@ -6,7 +6,7 @@ module.exports = {
   startService: (server, messageCallback = null) => {
     return new Promise((resolve, reject) => {
       try {
-        myKafkaClient.createClient({ kafkaHost: server })
+        myKafkaClient.createClient({ kafkaHost: server, fromOffset: true })
           .then(pr => {
             serviceStarted = true
             resolve('service started', server, Date())

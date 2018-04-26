@@ -19,7 +19,7 @@ const makeList = () => {
     li.setInner(JSON.stringify(data))
     let $el = $(li.getEl())
     $messages.prepend($el)
-    $el.fadeOut(30000)
+    $el.fadeOut(3000)
   })
 }
 
