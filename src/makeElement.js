@@ -4,6 +4,7 @@ class makeElement {
     this._element.className = styleClass
     if (_socket) {
       _socket.on('sensor', (data) => {
+        console.log('on sensor')
         this.setInner( JSON.stringify(data))
       })
     }

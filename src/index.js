@@ -1,3 +1,6 @@
+
+//require('socket.io-client')
+var io = require('socket.io-client');
 let socket = io()
 import makeElement from './makeElement'
 
@@ -14,12 +17,14 @@ const makePage = () => {
 
 const makeList = () => {
   let $messages = $('.messages'); // Messages area
-  socket.on('sensor', (data) => {
+  socket.emit('join', 'myid')
+  socket.on('myid', (data) => {
+    console.log('on sensor')
     const li = new makeElement('li', 'div2')
     li.setInner(JSON.stringify(data))
     let $el = $(li.getEl())
     $messages.prepend($el)
-    $el.fadeOut(3000)
+    $el.fadeOut(30000)
   })
 }
 
