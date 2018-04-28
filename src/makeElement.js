@@ -5,8 +5,8 @@ class makeElement {
    * Create an element
    * 
    * @param {string} type element type to create (H1, P, HR, etc.)
-   * @param {*} styleClass className for element
-   * @param {*} _socket optional socket
+   * @param {string} styleClass className for element
+   * @param {socket} _socket optional socket
    */
   constructor(type, styleClass, _socket = null){
     this._element = document.createElement(type)
