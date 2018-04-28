@@ -3,20 +3,30 @@
  * Server, socket and kafka service for the back end.
  */
 import express from 'express'
-import myService from "./kafka/service"
+import myService from './kafka/service'
 import http from 'http'
-import socket from 'socket.io'
+import { server as WebSocketServer } from "websocket";
 
 const port = 5050
 const app = express()
 app.use(express.static('dist'))
 const server = http.createServer(app)
-const io = socket(server)
-
+let connection = null
 server.listen(port, ()  =>{
   console.log('Server listening at port %d', port);
 })
 
+const wsServer = new WebSocketServer({
+  httpServer: server
+})
+wsServer.on('request', (request) => {
+  console.log('on request')
+  connection = request.accept(null, request.origin)
+  connection.on('close', (connection) => {
+    console.log('user left')
+  })
+  
+})
 
 /**
  * Callback for the kafka pubsub.
@@ -25,9 +35,10 @@ server.listen(port, ()  =>{
  * @param {string} message          the message
  */
 const messageCallback = (message) =>{
-  //console.log(message)
+  console.log(message)
   let msg = JSON.parse(message.value)
-  io.emit('sensor', msg)
+  if (connection)
+    connection.sendUTF(message.value)
 }
 
 /**
