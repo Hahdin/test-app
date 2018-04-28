@@ -1,6 +1,11 @@
+
+import io from "socket.io-client"
 let socket = io()
 import makeElement from './makeElement'
 
+/**
+ * Create a few elements for a page.
+ */
 const makePage = () => {
   const el = new makeElement('div', 'div2', socket)
   const header = new makeElement('hr', '')
@@ -11,15 +16,24 @@ const makePage = () => {
   el.addToBody()
 }
 
-
+/**
+ * Create a list with the incoming messages.
+ */
 const makeList = () => {
   let $messages = $('.messages'); // Messages area
+  socket.emit('join', 'myid')
   socket.on('sensor', (data) => {
+    console.log('on sensor')
     const li = new makeElement('li', 'div2')
+    //console.log(data)
+    let time = data.message['Server/Timestamp']
+    let id = data.message['Origin/Address']
+    let value = parseFloat(data.message['Reading/Pressure'])
+
     li.setInner(JSON.stringify(data))
     let $el = $(li.getEl())
     $messages.prepend($el)
-    $el.fadeOut(3000)
+    $el.fadeOut(15000)
   })
 }
 
