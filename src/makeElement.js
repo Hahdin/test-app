@@ -31,6 +31,7 @@ class makeElement {
     document.body.appendChild(this._element)
   }
   /**
+   * Set the innerHTML.
    * 
    * @param {string} text text to set the innerHTML as
    */
