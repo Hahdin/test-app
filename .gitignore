@@ -27,6 +27,7 @@ coverage
 build/Release
 dist/mybundle.js
 package-lock.json
+notes.txt
 
 # Dependency directories
 node_modules

@@ -1,9 +1,11 @@
 
-//require('socket.io-client')
-var io = require('socket.io-client');
+import io from "socket.io-client"
 let socket = io()
 import makeElement from './makeElement'
 
+/**
+ * Create a few elements for a page.
+ */
 const makePage = () => {
   const el = new makeElement('div', 'div2', socket)
   const header = new makeElement('hr', '')
@@ -14,7 +16,9 @@ const makePage = () => {
   el.addToBody()
 }
 
-
+/**
+ * Create a list with the incoming messages.
+ */
 const makeList = () => {
   let $messages = $('.messages'); // Messages area
   socket.emit('join', 'myid')
